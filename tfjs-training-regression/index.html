@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TensorFlow.js Tutorial</title>
+
+    <!-- Import TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+    <!-- Import tfjs-vis -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.0.2/dist/tfjs-vis.umd.min.js"></script>
+</head>
+
+<body>
+    <h1>TensorFlow.js Tutorial</h1>
+    <p>
+        <a target="_blank"
+            href="https://codelabs.developers.google.com/codelabs/tfjs-training-regression/index.html">
+            TensorFlow.js — Making Predictions from 2D Data
+        </a>
+    </p>
+
+    <form>
+        <label for="epochs">Epochs:</label>
+        <input type="number" id="epochs" value="50" min="1" max="100" />
+        <br>
+
+        <button type="button" id="run-button" onclick="runButtonClick()">Run</button>
+    </form>
+    <!-- Import the main script file -->
+    <script src="script.js"></script>
+</body>
+
+</html>
