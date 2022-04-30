@@ -106,8 +106,8 @@ async function train(model, data) {
   const fitCallbacks = tfvis.show.fitCallbacks(container, metrics);
 
   const BATCH_SIZE = 512;
-  const TRAIN_DATA_SIZE = 5500;
-  const TEST_DATA_SIZE = 1000;
+  let TRAIN_DATA_SIZE = 5500;
+  let TEST_DATA_SIZE = 1000;
 
   const [trainXs, trainYs] = tf.tidy(() => {
     const d = data.nextTrainBatch(TRAIN_DATA_SIZE);
@@ -141,19 +141,16 @@ const classNames = [
   "Nine",
 ];
 
-function doPrediction(model, data, testDataSize = 1) {
+function doPrediction(model, data, testDataSize = 500) {
   const IMAGE_WIDTH = 28;
   const IMAGE_HEIGHT = 28;
   const testData = data.nextTestBatch(testDataSize);
-  console.log(testData);
   const testxs = testData.xs.reshape([
     testDataSize,
     IMAGE_WIDTH,
     IMAGE_HEIGHT,
     1,
   ]);
-  window.tfModel = model;
-  console.log("testxs with 1 example", testxs);
   const labels = testData.labels.argMax(-1);
   const preds = model.predict(testxs).argMax(-1);
 
@@ -240,6 +237,8 @@ function penTool(e) {
 }
 function clearCanvas() {
   ctx.clearRect(0, 0, c.width, c.height);
+  document.getElementById("categorize-result").innerHTML = "";
+  document.getElementById("drawing-data-container").innerHTML = "";
 }
 document.getElementById("clear-button").addEventListener("click", clearCanvas);
 function getDataArr(canvas) {
@@ -289,6 +288,7 @@ categorizeButton.addEventListener("click", async () => {
   });
   const preds = doPredictFromCanvas(model, c);
   const categorizeResultElem = document.getElementById("categorize-result");
+  console.log(preds.dataSync());
   categorizeResultElem.innerHTML =
     preds.toString() + "<br>" + preds.argMax(-1).toString();
 });
